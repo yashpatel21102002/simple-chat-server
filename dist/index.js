@@ -2,13 +2,22 @@ import http from 'http';
 import express from 'express';
 import { WebSocketServer } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
+import cors from 'cors';
 //Port on which our http server will run
 const PORT = process.env.PORT || '8080';
 //express middleware handler app
 const app = express();
+//corst
+app.use(cors());
+//json format
+app.use(express.json());
 //creating the server instance 
 //passing the app as it is also a main route handler.
 const server = http.createServer(app);
+//on the default port lets set any thing
+app.use("/", (req, res) => {
+    res.status(200).json("trying to hit the server");
+});
 //we will start the websocketserver that will take the http server as a argument to upgrade the request to ws.
 const wss = new WebSocketServer({ server: server });
 //creating the new room map 

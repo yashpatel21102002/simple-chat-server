@@ -14,9 +14,17 @@ const app = express()
 //corst
 app.use(cors())
 
+//json format
+app.use(express.json())
+
 //creating the server instance 
 //passing the app as it is also a main route handler.
 const server = http.createServer(app)
+
+//on the default port lets set any thing
+app.use("/", (req, res) => {
+    res.status(200).json("trying to hit the server")
+})
 
 //we will start the websocketserver that will take the http server as a argument to upgrade the request to ws.
 const wss = new WebSocketServer({ server: server })
