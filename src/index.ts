@@ -3,12 +3,16 @@ import express from 'express'
 import WebSocket, { WebSocketServer } from 'ws'
 import { v4 as uuidv4 } from 'uuid'
 import { CustomWebSocket, messageBody } from './types/ws';
+import cors from 'cors'
 
 //Port on which our http server will run
 const PORT = process.env.PORT || '8080';
 
 //express middleware handler app
 const app = express()
+
+//corst
+app.use(cors())
 
 //creating the server instance 
 //passing the app as it is also a main route handler.
